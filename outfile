@@ -1,0 +1,14 @@
+total 68
+-rw-r--r-- 1 mzangaro mzangaro   524 Aug 20 21:38 Makefile
+-rw-r--r-- 1 mzangaro mzangaro    20 Aug 20 22:14 infile
+drwxr-xr-x 2 mzangaro mzangaro  4096 Aug 20 23:11 libft
+-rw-r--r-- 1 mzangaro mzangaro  3076 Aug 20 23:01 old.c
+-rw-r--r-- 1 mzangaro mzangaro     0 Aug 20 23:11 outfile
+-rwxr-xr-x 1 mzangaro mzangaro 21784 Aug 20 23:11 pipex
+-rw-r--r-- 1 mzangaro mzangaro  2247 Aug 20 23:00 pipex.c
+-rw-r--r-- 1 mzangaro mzangaro  1755 Aug 20 22:58 pipex.h
+-rw-r--r-- 1 mzangaro mzangaro  3928 Aug 20 23:11 pipex.o
+-rw-r--r-- 1 mzangaro mzangaro  1327 Aug 20 22:58 pipex_checks.c
+-rw-r--r-- 1 mzangaro mzangaro  2240 Aug 20 23:11 pipex_checks.o
+-rw-r--r-- 1 mzangaro mzangaro  2247 Aug 20 22:53 pipex_utils.c
+-rw-r--r-- 1 mzangaro mzangaro  3672 Aug 20 23:11 pipex_utils.o
