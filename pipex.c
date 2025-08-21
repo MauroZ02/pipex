@@ -6,7 +6,7 @@
 /*   By: mzangaro <mzangaro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:51:04 by mzangaro          #+#    #+#             */
-/*   Updated: 2025/08/20 23:22:58 by mzangaro         ###   ########.fr       */
+/*   Updated: 2025/08/21 22:10:23 by mzangaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,51 +29,57 @@ char	**find_path(char **envp, t_pipex *p)
 	}
 	if (envp[i] == NULL)
 	{
-		ft_putendl_fd("PATH not found in environment\n", 2);
+		ft_putendl_fd("PATH not found in environment", 2);
 		exit(127);
 	}
+	if (!p->path)
+		exit (1);
 	split_path = ft_split(p->path, ':');
 	free(p->path);
 	return (split_path);
 }
 
-char	*aux_find_path(char *cmd, char **split_path, t_pipex *p)
+char	*aux_find_path(char **split_path, char *cmd, t_pipex *p)
 {
 	char	*temp;
 	int		i;
 
+	if (ft_strchr(cmd, '/')){
+		if (access(cmd, X_OK) == 0)
+			return (free_array(split_path), ft_strdup(cmd));
+		perror("execve");
+		free_array(split_path);
+		exit (126);
+	}
 	i = 0;
-	temp = NULL;
-	while (split_path[i])
-	{
-		temp = ft_strjoin(split_path[i], "/"); //liberar
-		p->path = ft_strjoin(temp, cmd);
-		if (access(p->path, X_OK) == 0)
+	while (split_path[i]){
+		temp = ft_strjoin(split_path[i], "/");
+		if (!temp)
 			break ;
+		p->path = ft_strjoin(temp, cmd);
 		free (temp);
+		if (!p->path)
+			break ;
+		if (access(p->path, X_OK) == 0)
+			return (free_array(split_path), p->path);
 		free (p->path);
+		p->path = NULL;
 		i++;
 	}
-	if (split_path[i] == NULL)
-	{
-		free_array(split_path);
-		ft_putendl_fd("command not found", 2);
-		exit(127);
-	}
 	free_array(split_path);
-	free (temp);
-	return (p->path);
+	ft_putendl_fd("command not found", 2);
+	exit(127);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 	t_pipex	*p;
-	
+
 	pipex = (t_pipex){0};
 	p = &pipex;
 	if (check_args(argc) != 0)
-			return (1);
+		return (1);
 	if (open_fds(p, argv) != 0)
 		return (1);
 	p->pid1 = fork();
