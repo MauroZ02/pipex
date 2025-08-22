@@ -8,9 +8,10 @@ LIBFT_PATH = ./libft
 LIBFT  = $(LIBFT_PATH)/libft.a
 
 
-SRCS =  pipex.c\
+SRCS =  pipex_main.c\
+		pipex_checks.c\
+		pipex_path.c\
 		pipex_utils.c\
-		pipex_checks.c
 
 OBJS = $(SRCS:.c=.o)
 
