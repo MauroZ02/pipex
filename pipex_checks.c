@@ -6,7 +6,7 @@
 /*   By: mzangaro <mzangaro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:41:27 by mzangaro          #+#    #+#             */
-/*   Updated: 2025/08/22 21:03:45 by mzangaro         ###   ########.fr       */
+/*   Updated: 2025/08/23 22:38:59 by mzangaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ int	open_fds(t_pipex *p, char **argv)
 	p->fd2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (p->fd2 == -1)
 		perror("outfile");
-	if (p->fd1 == -1 || p->fd2 == -1)
-	{
-		close_one(&p->fd1);
-		close_one(&p->fd2);
-		return (1);
-	}
 	if (pipe(p->pipe_fd) == -1)
 	{
 		perror("pipe");

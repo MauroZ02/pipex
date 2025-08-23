@@ -6,7 +6,7 @@
 /*   By: mzangaro <mzangaro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 15:00:28 by mzangaro          #+#    #+#             */
-/*   Updated: 2025/08/22 21:06:42 by mzangaro         ###   ########.fr       */
+/*   Updated: 2025/08/23 21:42:12 by mzangaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 typedef struct s_pipex
 {
+	pid_t	pid1;
+	pid_t	pid2;
 	char	**cmd1;
 	char	**cmd2;
 	char	*path;
@@ -29,8 +31,6 @@ typedef struct s_pipex
 	int		fd1;
 	int		fd2;
 	int		pipe_fd[2];
-	int		pid1;
-	int		pid2;
 }	t_pipex;
 
 /* checks.c */
@@ -40,14 +40,15 @@ void	close_fds(t_pipex *p);
 int		check_args(int argc);
 char	**free_array(char **split);
 /* path.c */
-char	*get_envp(char **envp, t_pipex *p);
+char	**get_envp(char **envp);
 char	*join_path(char *join, char *cmd);
-char	*slash_in_cmd(char **split_path, char *cmd);
-char	*find_path(char **split_path, char *cmd, t_pipex *p);
-char	*aux_find_path(char *split_path, char *cmd, t_pipex *p);
+char	*slash_in_cmd(char *cmd);
+char	*find_path(char **envp, char *cmd);
+char	*aux_find_path(char **split_path, char *cmd);
 /* utils.c */
 void	dup_child(t_pipex *p, int in_fd, int out_fd);
-void	exec_child(t_pipex  *p, char **argv, char **envp);
+void	die(int code, char *path, char **cmd, const char *msg);
+void	exec_child(char *path, char **cmd, char **envp);
 void	init_child_1(char **argv, char **envp, t_pipex *p);
 void	init_child_2(char **argv, char **envp, t_pipex *p);
 /* main.c */

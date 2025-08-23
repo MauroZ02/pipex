@@ -8,7 +8,7 @@ LIBFT_PATH = ./libft
 LIBFT  = $(LIBFT_PATH)/libft.a
 
 
-SRCS =  pipex_main.c\
+SRCS =  pipex.c\
 		pipex_checks.c\
 		pipex_path.c\
 		pipex_utils.c\

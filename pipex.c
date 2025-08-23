@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzangaro <mzangaro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:51:04 by mzangaro          #+#    #+#             */
-/*   Updated: 2025/08/22 19:24:35 by mzangaro         ###   ########.fr       */
+/*   Updated: 2025/08/23 19:54:14 by mzangaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	close_fds(&p);
 	waitpid(p.pid1, &st1, 0);
 	waitpid(p.pid2, &st2, 0);
-	return (WEXITSTATUS(st2));
+	if (WIFEXITED(st2))
+		return (WEXITSTATUS(st2));
+	return (1);
 }
